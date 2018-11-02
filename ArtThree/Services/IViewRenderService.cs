@@ -1,6 +1,6 @@
 ﻿namespace ArtThree
 {
-    internal interface IViewRenderService
+    public interface IViewRenderService
     {
     }
 }

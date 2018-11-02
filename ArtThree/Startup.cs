@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtThree.Models;
@@ -37,7 +38,12 @@ namespace ArtThree
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddCors(o => o.AddPolicy("AppPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -63,42 +69,47 @@ namespace ArtThree
             services.AddAuthentication("ST_AUTH")
                 .AddCookie("ST_AUTH", options =>
                 {
-                    options.AccessDeniedPath = "/Account/Forbidden";
-                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Home/Forbidden";
+                   // options.LoginPath = "/Account/Login";
                     options.Cookie.Expiration = new TimeSpan(7, 0, 0, 0);
                 });
             services.AddMemoryCache();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.Cookie.Name = "ST_AUTH";
+                options.Cookie.Name = "ArtThree_AUTH";
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
+               // app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSession();
-            app.UseAuthentication();
-
-            app.UseMvc(routes =>
+            // Middleware to handle all request
+            app.Use(async (context, next) =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                await next();
+                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html";
+                    context.Response.StatusCode = 200;
+                    await next();
+                }
             });
+
+            DefaultFilesOptions options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("/index.html");
+            app.UseDefaultFiles(options);
+            app.UseStaticFiles();
+            app.UseFileServer(enableDirectoryBrowsing: false);
+            app.UseMvc();
         }
     }
 }
