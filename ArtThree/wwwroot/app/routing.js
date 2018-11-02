@@ -12,11 +12,7 @@ templatingApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
         $compileProvider.debugInfoEnabled(false);
 
         $stateProvider
-            .state('Home', {
-                url: '/',
-                templateUrl: './views/data/datar.html' + fileVersion,
-                controller: 'DataController'
-            })
+
             .state('Analysis', {
                 url: '/Analysis',
                 templateUrl: './views/analysis/analysis.html' + fileVersion,

@@ -24,7 +24,7 @@ namespace ArtThree
             _context = dbctx;
             _config = config;
         }
-        public ATTrainee GetTraineeById(Guid traineeId)
+        public ATTrainee GetTraineeById(int traineeId)
         {
             //return p_context.Contacts.Include(c => c.Company).OrderBy(c => c.Name);
             return _context.Trainees.FirstOrDefault(c => c.Id == traineeId);
@@ -32,7 +32,7 @@ namespace ArtThree
 
         public ATTrainee AddOrUpdateContact(ATTrainee atTrainee)
         {
-            if (atTrainee.Id == Guid.Empty)
+            if (atTrainee.Id == 0)
             {
                 _context.Trainees.Add(atTrainee);
                 return atTrainee;

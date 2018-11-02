@@ -35,7 +35,7 @@ namespace ArtThree.Models
         }
 
         public DbSet<ATTrainee> Trainees { get; set; }
-        public DbSet<ATUser> User { get; set; }
+       // public DbSet<ATUser> User { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

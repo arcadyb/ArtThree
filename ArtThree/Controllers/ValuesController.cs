@@ -33,13 +33,13 @@ namespace ArtThree.Controllers
         [HttpGet, Route("GetUser")]
         public async Task<object> GetUser()
         {
-            List<ATUser> users = null;
+            List<ATTrainee> users = null;
             object result = null;
             try
             {
                 using (m_context)
                 {
-                    users = await m_context.User.ToListAsync();
+                    users = await m_context.Trainees.ToListAsync();
                     result = new
                     {
                         User
@@ -55,27 +55,27 @@ namespace ArtThree.Controllers
 
         // GET api/Values/GetUserByID/5
         [HttpGet, Route("GetUserByID/{id}")]
-        public async Task<ATUser> GetUserByID(int id)
+        public async Task<ATTrainee> GetUserByID(int id)
         {
-            ATUser ATUser = null;
+            ATTrainee ATTrainee = null;
             try
             {
                 using (m_context)
                 {
-                    ATUser = await m_context.User.FirstOrDefaultAsync(x => x.Id == id);
+                    ATTrainee = await m_context.Trainees.FirstOrDefaultAsync(x => x.Id == id);
                 }
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
-            return ATUser;
+            return ATTrainee;
         }
 
 
         // POST api/Values/PostUser
         [HttpPost, Route("PostUser")]
-        public async Task<object> PostUser([FromBody]ATUser model)
+        public async Task<object> PostUser([FromBody]ATTrainee model)
         {
             object result = null; string message = "";
             if (model == null)
@@ -88,7 +88,7 @@ namespace ArtThree.Controllers
                 {
                     try
                     {
-                        m_context.User.Add(model);
+                        m_context.Trainees.Add(model);
                         await m_context.SaveChangesAsync();
                         _ctxTransaction.Commit();
                         message = "Saved Successfully";
@@ -111,7 +111,7 @@ namespace ArtThree.Controllers
 
         // PUT api/Values/PutUser/5
         [HttpPut, Route("PutUser/{id}")]
-        public async Task<object> PutUser(int id, [FromBody]ATUser model)
+        public async Task<object> PutUser(int id, [FromBody]ATTrainee model)
         {
             object result = null; string message = "";
             if (model == null)
@@ -124,11 +124,11 @@ namespace ArtThree.Controllers
                 {
                     try
                     {
-                        var entityUpdate = m_context.User.FirstOrDefault(x => x.Id == id);
+                        var entityUpdate = m_context.Trainees.FirstOrDefault(x => x.Id == id);
                         if (entityUpdate != null)
                         {
                             entityUpdate.Name = model.Name;
-                            entityUpdate.Phone = model.Phone;
+                            
                             entityUpdate.Email = model.Email;
 
                             await m_context.SaveChangesAsync();
@@ -162,10 +162,10 @@ namespace ArtThree.Controllers
                 {
                     try
                     {
-                        var idToRemove = m_context.User.SingleOrDefault(x => x.Id == id);
+                        var idToRemove = m_context.Trainees.SingleOrDefault(x => x.Id == id);
                         if (idToRemove != null)
                         {
-                            m_context.User.Remove(idToRemove);
+                            m_context.Trainees.Remove(idToRemove);
                             await m_context.SaveChangesAsync();
                         }
                         _ctxTransaction.Commit();

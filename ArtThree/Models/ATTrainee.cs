@@ -5,7 +5,7 @@ namespace ArtThree.Models
 {
     public class ATTrainee
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int Grade { get; set; } = 0;
         public string Address { get; set; } = string.Empty;

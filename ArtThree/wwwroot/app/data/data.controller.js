@@ -3,7 +3,7 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.title = "All User";
     $scope.ListUser = null;
     $scope.userModel = {};
-    $scope.userModel.id = 0;
+    $scope.userModel.Id = 0;
     getallData();
 
     //******=========Get All User=========******
@@ -48,7 +48,7 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.updateUser = function () {
         $http({
             method: 'PUT',
-            url: '/api/Values/PutUser/' + parseInt($scope.userModel.id),
+            url: '/api/Values/PutUser/' + parseInt($scope.userModel.Id),
             data: $scope.userModel
         }).then(function (response) {
             $scope.reset();
@@ -78,6 +78,6 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.reset = function () {
         var msg = "Form Cleared";
         $scope.userModel = {};
-        $scope.userModel.id = 0;
+        $scope.userModel.Id = 0;
     };
 }]);

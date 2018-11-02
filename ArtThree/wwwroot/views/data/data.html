@@ -15,11 +15,11 @@
                 </thead>
                     <tbody>
                         <tr ng-repeat="item in ListUser">
-                            <td>{{ item.Id }}</td>
+                            <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
-                            <td>{{ item.Date }}</td>
-                            <td>{{ item.Grade }}</td>
-                            <td>{{ item.Subject }}</td>
+                            <td>{{ item.dateJoined }}</td>
+                            <td>{{ item.grade }}</td>
+                            <td>{{ item.subject }}</td>
                             <td>
                                 <a href="#" ng-click="getUser(item)" title="Edit Record" class="btn btn-primary btn-xs pull-right">
                                     Edit
@@ -35,11 +35,15 @@
         <div class="col-sm-4">
             <h3>Add New User</h3>
             <form name="frmUser" novalidate>
-                <input type="hidden" ng-model="userModel.id" name="uid" />
+                <input type="hidden" ng-model="userModel.Id" name="uid" />
                 <div class="form-group">
-                    <label for="uname" class="control-label">User Name</label>
+                    <label for="uname" class="control-label">Name</label>
                     <input type="text" class="form-control" ng-model="userModel.name" name="uname" placeholder="" required />
                     <span class="error" ng-show="(frmUser.$dirty||submitted) && frmUser.uname.$error.required">Customer name is Required</span>
+                </div>
+                <div class="form-group">
+                    <label for="Grade" class="control-label">Grade</label>
+                    <input type="text" class="form-control" ng-model="userModel.grade" name="Grade" placeholder="" />
                 </div>
                 <div class="form-group">
                     <label for="email" class="control-label">E-mail</label>
@@ -48,17 +52,17 @@
                     <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.$error.email">Invalid EmailId!</span>
                 </div>
                 <div class="form-group">
-                    <label for="phone" class="control-label">Phone</label>
-                    <input type="text" class="form-control" ng-model="userModel.phone" name="phone" placeholder="" />
+                    <label for="phone" class="control-label">Date Joined</label>
+                    <input type="text" class="form-control" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" />
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>
                     <button type="submit" class="btn btn-primary" ng-click="saveUser()" ng-disabled="frmUser.$invalid"
-                            ng-If="userModel.id == 0">
+                            ng-If="userModel.Id == 0">
                         Create
                     </button>
                     <button type="submit" class="btn btn-success" ng-click="updateUser()" ng-disabled="frmUser.$invalid"
-                            ng-If="userModel.id > 0">
+                            ng-If="userModel.Id > 0">
                         Update
                     </button>
                 </div>
