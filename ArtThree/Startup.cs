@@ -20,7 +20,7 @@ namespace ArtThree
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(p_hostingEnvironment.ContentRootPath)
-                .AddJsonFile("config.json");
+                .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
             HostingEnvironment = p_hostingEnvironment;
         }

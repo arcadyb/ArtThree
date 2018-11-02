@@ -1,6 +1,11 @@
-﻿namespace ArtThree
+﻿using ArtThree.Models;
+using System.Collections.Generic;
+
+namespace ArtThree
 {
-    internal class IATRepository
+    public interface IATRepository
     {
+        List<ATTrainee> GetTrainies();
+
     }
 }
