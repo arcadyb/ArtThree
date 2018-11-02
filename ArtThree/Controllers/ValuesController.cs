@@ -34,22 +34,29 @@ namespace ArtThree.Controllers
         public async Task<object> GetUser()
         {
             List<ATTrainee> users = null;
-            object result = null;
             try
             {
-                using (m_context)
-                {
-                    users = await m_context.Trainees.ToListAsync();
-                    result = new
-                    {
-                        User
-                    };
-                }
+                users= await m_repoService.GetTrainies();
+
             }
             catch (Exception ex)
             {
+
                 ex.ToString();
-            }
+            }            //List<ATTrainee> users = null;
+
+            //try
+            //{
+            //    using (m_context)
+            //    {
+            //        users = await m_context.Trainees.ToListAsync();
+
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ex.ToString();
+            //}
             return users;
         }
 

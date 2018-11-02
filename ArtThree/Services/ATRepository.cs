@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ArtThree.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace ArtThree
@@ -14,9 +16,23 @@ namespace ArtThree
         private readonly IConfiguration _config;
 
 
-        public List<ATTrainee> GetTrainies()
+        public async Task<List<ATTrainee>> GetTrainies()
         {
-            return new List<ATTrainee>();
+            List<ATTrainee> users = null;
+           
+            try
+            {
+                using (_context)
+                {
+                    users = await _context.Trainees.ToListAsync();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            return users;
         }
         public ATRepository([FromServices] ATDbContext dbctx,
                             IConfiguration config)
@@ -30,7 +46,7 @@ namespace ArtThree
             return _context.Trainees.FirstOrDefault(c => c.Id == traineeId);
         }
 
-        public ATTrainee AddOrUpdateContact(ATTrainee atTrainee)
+        public ATTrainee AddOrUpdateTrainee(ATTrainee atTrainee)
         {
             if (atTrainee.Id == 0)
             {
@@ -41,6 +57,11 @@ namespace ArtThree
             originalTrainee.Update(atTrainee);
             _context.Update(originalTrainee);
             return originalTrainee;
+        }
+
+        public bool Delete(int traineeId)
+        {
+            throw new NotImplementedException();
         }
     }
 
