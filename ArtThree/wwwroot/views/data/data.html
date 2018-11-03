@@ -1,12 +1,12 @@
 <div class="container-fluid">
-    <div class="row row-eq-height" style="height:30px">
+    <div class="row row-eq-height" style="height:40px">
         <div class="col-sm-2">
             <form class="navbar-form" role="search">
                 <div class="input-group" style="position:absolute;top:0px;width:270px">
                     <span class="input-group-addon">
                         <i class="fa fa-search"></i>
                     </span>
-                    <input id="idSearchBox" type="text" class="form-control searchBox" style="background-color:white;color:black" ng-model="searchText" placeholder="Search...">
+                    <input id="idSearchBox" ng-keyup="FilterChanged()" type="text" class="searchBox" style="background-color:white;color:black" ng-model="searchText" placeholder="Search...">
                 </div>
             </form>
         </div>
@@ -20,8 +20,8 @@
         </div>
         <div class="col-sm-8">
            
-                <span>items per page:</span>
-                <input style="width:60px;display:inline" type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                <span>Items per page:</span>
+                <input style="width:50px;display:inline" type="number" min="1" max="100"  ng-model="pageSize">
            
         </div>
  
@@ -65,23 +65,43 @@
                 <form name="frmUser" novalidate>
                     <input type="hidden" ng-model="userModel.Id" name="uid" />
                     <div class="form-group">
-                        <label for="uname" class="control-label">Name</label>
-                        <input type="text" class="form-control" ng-model="userModel.name" name="uname" placeholder="" required />
+                        <span class="control-label">Name</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.name" name="uname" placeholder="" required />
                         <span class="error" ng-show="(frmUser.$dirty||submitted) && frmUser.uname.$error.required">Customer name is Required</span>
                     </div>
                     <div class="form-group">
-                        <label for="Grade" class="control-label">Grade</label>
-                        <input type="text" class="form-control" ng-model="userModel.grade" name="Grade" placeholder="" />
+                        <span class="control-label">Grade</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.grade" name="Grade" placeholder="" />
                     </div>
                     <div class="form-group">
-                        <label for="email" class="control-label">E-mail</label>
-                        <input type="email" class="form-control" ng-model="userModel.email" name="email" placeholder="" required />
+                        <span class="control-label">E-mail</span>
+                        <input type="email" class="ateditbox" ng-model="userModel.email" name="email" placeholder="" required />
                         <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.email.$error.required">EmailId is Required!</span>
                         <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.$error.email">Invalid EmailId!</span>
                     </div>
                     <div class="form-group">
-                        <label for="DateJoined" class="control-label" ng-click="showDate()">Date Joined</label>
-                        <input type="datetime" class="form-control" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" moment-picker="userModel.dateJoined">
+                        <span class="control-label">Date Joined</span>
+                        <input type="date" class="ateditbox" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" >
+                    </div>
+                    <div class="form-group">
+                        <span class="control-label">Address</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.address" name="Address" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <span class="control-label">City</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.city" name="City" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <span class="control-label">Country</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.country" name="Country" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <span class="control-label">Zip</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.zip" name="Zip" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <span class="control-label">Subject</span>
+                        <input type="text" class="ateditbox" ng-model="userModel.subject" name="Zip" placeholder="">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>

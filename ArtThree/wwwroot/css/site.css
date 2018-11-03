@@ -42,4 +42,14 @@ tbody {
     color: blue;
     font-weight: bold;
 }
+li.active {
+    color: blue;
+    font-weight: bold;
+}
+.ateditbox {
+    width: 250px;
+    height: 30px;
+    display: inline;
+    float:right;
+}
 

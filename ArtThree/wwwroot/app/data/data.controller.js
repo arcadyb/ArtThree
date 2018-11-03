@@ -148,4 +148,17 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
         $scope.userModel.id = 0;
         $scope.enableCreate = false;
     };
+    $scope.pageChangeHandler = function (num) {
+        localStorage.setItem("currpage", $scope.currentPage); 
+        localStorage.setItem("pagesize", $scope.pageSize); 
+    };
+    $scope.FilterChanged = function () {
+        localStorage.setItem("filter", $scope.searchText);
+    };
+    $scope.Init = function () {
+        $scope.searchText = localStorage.getItem('filter');
+        $scope.pageSize = parseInt( localStorage.getItem('pagesize'));
+        $scope.currentPage = parseInt( localStorage.getItem('currpage'));
+    }
+    $scope.Init();
 }]);
