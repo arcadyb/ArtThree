@@ -26,11 +26,15 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
         if ($scope.selectedRow == index) {
             $scope.selectedRow = -1;
             $scope.selectedId = 0;
+            $scope.reset();
         }
         else {
             //function that sets the value of selectedRow to current index
             $scope.selectedRow = index;
             $scope.selectedId = id;
+            $scope.userModel = $scope.FindUserById($scope.selectedId);
+           
+ 
         }
     }
     //******=========Get All User=========******
