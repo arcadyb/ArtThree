@@ -103,12 +103,14 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
 
     //******=========Delete User=========******
     $scope.deleteUser = function (user) {
-        var IsConf = confirm('You are about to delete ' + user.Name + '. Are you sure?');
+        var IsConf = confirm('You are about to delete ' + user.name + '. Are you sure?');
         if (IsConf) {
             $http({
                 method: 'DELETE',
                 url: '/api/Values/DeleteUserByID/' + parseInt(user.id)
             }).then(function (response) {
+                $scope.selectedId = 0;
+                $scope.selectedRow = -1;
                 $scope.reset();
                 getallData();
             }, function (error) {
@@ -116,7 +118,27 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
             });
         }
     };
+    $scope.FindUserById = function (id) {
+        var userfound = null;
+        $scope.ListUser.forEach(function (usr) {
+            if (usr.id == id)
+                userfound = usr;
+        });
 
+        return userfound;
+    };
+
+        $scope.deleteSelected = function () {
+            var user = null;
+            if ($scope.selectedId > 0) {
+                user = $scope.FindUserById($scope.selectedId);
+                if (user == null) {
+                    return;
+                }
+            }
+            $scope.deleteUser(user);
+        
+    }
     //******=========Clear Form=========******
     $scope.reset = function () {
         var msg = "Form Cleared";
