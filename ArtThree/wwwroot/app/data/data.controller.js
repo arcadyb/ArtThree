@@ -146,5 +146,6 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
         var msg = "Form Cleared";
         $scope.userModel = {};
         $scope.userModel.id = 0;
+        $scope.enableCreate = false;
     };
 }]);
