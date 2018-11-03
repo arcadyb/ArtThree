@@ -6,6 +6,9 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.userModel.id = 0;
     $scope.searchText = "";
     $scope.enableCreate = false;
+    $scope.selectedRow = -1;
+    $scope.selectedId = 0;
+
     getallData();
     $scope.enableCreateNew=function() {
         if ($scope.enableCreate) {
@@ -13,9 +16,20 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
             $scope.enableCreate = false;
         }
         else { 
-        createEmptyTrainee();
-        $scope.enableCreate = true;
+            createEmptyTrainee();
+            $scope.enableCreate = true;
+        }
     }
+    $scope.setClickedRow = function (index, id) {
+        if ($scope.selectedRow == index) {
+            $scope.selectedRow = -1;
+            $scope.selectedId = 0;
+        }
+        else {
+            //function that sets the value of selectedRow to current index
+            $scope.selectedRow = index;
+            $scope.selectedId = id;
+        }
     }
     //******=========Get All User=========******
     function getallData() {

@@ -17,6 +17,7 @@ tbody {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    cursor:grabbing;
 }
 
     tbody td, thead th {
@@ -35,5 +36,10 @@ tbody {
 }
 .navbar {
     margin-bottom: 0px;
+}
+.selected {
+    background-color: black;
+    color: blue;
+    font-weight: bold;
 }
 

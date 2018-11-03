@@ -14,7 +14,7 @@
             <a href="#" ng-click="enableCreateNew()" title="Add" class="btn btn-primary btn-xs pull-right">
                 Add
             </a>
-            <a href="#" ng-click="deleteSelected()" title="Delete" class="btn btn-danger btn-xs pull-right">
+            <a href="#" ng-disabled="selectedRow<=-1" ng-click="deleteSelected()" title="Delete" class="btn btn-danger btn-xs pull-right">
                 Remove
             </a>
         </div>
@@ -36,7 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in ListUser| filter:searchText">
+                        <tr ng-repeat="item in ListUser| filter:searchText" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item.id)">
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.dateJoined }}</td>
@@ -46,7 +46,7 @@
                                 <a href="#" ng-click="getUser(item)" title="Edit Record" class="btn btn-primary btn-xs pull-right">
                                     Edit
                                 </a>
-                                <a href="#" ng-click="deleteUser(item)" title="Delete Record" class="btn btn-danger btn-xs pull-right">
+                                <a href="#"  ng-click="deleteUser(item)" title="Delete Record" class="btn btn-danger btn-xs pull-right">
                                     Delete
                                 </a>
                             </td>
