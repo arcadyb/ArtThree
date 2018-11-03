@@ -3,6 +3,6 @@ var templatingApp;
 (
     function () {
         'use strict';
-        templatingApp = angular.module('templating_app', ['ui.router', 'moment-picker']);
+        templatingApp = angular.module('templating_app', ['ui.router', 'angularUtils.directives.dirPagination' , 'moment-picker']);
     }
 )();

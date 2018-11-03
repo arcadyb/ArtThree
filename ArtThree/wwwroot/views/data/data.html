@@ -14,82 +14,87 @@
             <a href="#" ng-click="enableCreateNew()" title="Add" class="btn btn-primary btn-xs pull-right">
                 Add
             </a>
-            <a href="#" ng-disabled="selectedRow<=-1" ng-click="deleteSelected()" title="Delete" class="btn btn-danger btn-xs pull-right">
+            <a href="#" ng-disabled="selectedId==0" ng-click="deleteSelected()" title="Delete" class="btn btn-danger btn-xs pull-right">
                 Remove
             </a>
         </div>
         <div class="col-sm-8"></div>
-        </div>
-        <div class="row row-eq-height">
-            <div class="col-sm-8 ">
+    </div>
+    <div class="row row-eq-height">
+        <div class="col-sm-8 ">
 
-                <table style="width:100%;height:100%" class="table table-striped">
-                    <thead tyle="width:100%">
-                        <tr>
-                            <th>Id.</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Grade</th>
-                            <th>Subject</th>
-                            
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in ListUser| filter:searchText" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index,item.id)">
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.dateJoined }}</td>
-                            <td>{{ item.grade }}</td>
-                            <td>{{ item.subject }}</td>
-                            <td>
-                                <a href="#" ng-click="getUser(item)" title="Edit Record" class="btn btn-primary btn-xs pull-right">
-                                    Edit
-                                </a>
-                                <a href="#"  ng-click="deleteUser(item)" title="Delete Record" class="btn btn-danger btn-xs pull-right">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-4" style="overflow-y:scroll">
-                <h3>Details</h3>
-                <form name="frmUser" novalidate>
-                    <input type="hidden" ng-model="userModel.Id" name="uid" />
-                    <div class="form-group">
-                        <label for="uname" class="control-label">Name</label>
-                        <input type="text" class="form-control" ng-model="userModel.name" name="uname" placeholder="" required />
-                        <span class="error" ng-show="(frmUser.$dirty||submitted) && frmUser.uname.$error.required">Customer name is Required</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="Grade" class="control-label">Grade</label>
-                        <input type="text" class="form-control" ng-model="userModel.grade" name="Grade" placeholder="" />
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="control-label">E-mail</label>
-                        <input type="email" class="form-control" ng-model="userModel.email" name="email" placeholder="" required />
-                        <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.email.$error.required">EmailId is Required!</span>
-                        <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.$error.email">Invalid EmailId!</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="DateJoined" class="control-label" ng-click="showDate()">Date Joined</label>
-                        <input type="datetime" class="form-control" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" moment-picker="userModel.dateJoined">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>
-                        <button type="submit" class="btn btn-primary" ng-click="saveUser()"
-                                ng-If="userModel.id == 0 && enableCreate">
-                            Create
-                        </button>
-                        <button type="submit" class="btn btn-success" ng-click="updateUser()"
-                                ng-If="userModel.id > 0">
-                            Update
-                        </button>
-                    </div>
-                </form>
-                <span class="warning">{{resmessage}}</span>
-            </div>
+            <table style="width:100%;height:100%" class="table table-striped">
+                <thead tyle="width:100%">
+                    <tr>
+                        <th>Id.</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Grade</th>
+                        <th>Subject</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="item in ListUser| filter:searchText| itemsPerPage: pageSize" current-page="currentPage" ng-class="{'selected':item.id == selectedId}" ng-click="setClickedRow($index,item.id)">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.dateJoined }}</td>
+                        <td>{{ item.grade }}</td>
+                        <td>{{ item.subject }}</td>
+                        <td>
+                            <a href="#" ng-click="getUser(item)" title="Edit Record" class="btn btn-primary btn-xs pull-right">
+                                Edit
+                            </a>
+                            <a href="#" ng-click="deleteUser(item)" title="Delete Record" class="btn btn-danger btn-xs pull-right">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <div class="col-sm-4" style="overflow-y:scroll">
+            <h3>Details</h3>
+            <form name="frmUser" novalidate>
+                <input type="hidden" ng-model="userModel.Id" name="uid" />
+                <div class="form-group">
+                    <label for="uname" class="control-label">Name</label>
+                    <input type="text" class="form-control" ng-model="userModel.name" name="uname" placeholder="" required />
+                    <span class="error" ng-show="(frmUser.$dirty||submitted) && frmUser.uname.$error.required">Customer name is Required</span>
+                </div>
+                <div class="form-group">
+                    <label for="Grade" class="control-label">Grade</label>
+                    <input type="text" class="form-control" ng-model="userModel.grade" name="Grade" placeholder="" />
+                </div>
+                <div class="form-group">
+                    <label for="email" class="control-label">E-mail</label>
+                    <input type="email" class="form-control" ng-model="userModel.email" name="email" placeholder="" required />
+                    <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.email.$error.required">EmailId is Required!</span>
+                    <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.$error.email">Invalid EmailId!</span>
+                </div>
+                <div class="form-group">
+                    <label for="DateJoined" class="control-label" ng-click="showDate()">Date Joined</label>
+                    <input type="datetime" class="form-control" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" moment-picker="userModel.dateJoined">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>
+                    <button type="submit" class="btn btn-primary" ng-click="saveUser()"
+                            ng-If="userModel.id == 0 && enableCreate">
+                        Create
+                    </button>
+                    <button type="submit" class="btn btn-success" ng-click="updateUser()"
+                            ng-If="userModel.id > 0">
+                        Update
+                    </button>
+                </div>
+            </form>
+            <span class="warning">{{resmessage}}</span>
+        </div>
+    </div>
+    <div class="row row-eq-height" style="height:20px">
+        <div class="text-center">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="./views/shared/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+    </div>
     </div>

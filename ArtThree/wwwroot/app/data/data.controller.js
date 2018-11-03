@@ -5,6 +5,8 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.userModel = {};
     $scope.userModel.id = 0;
     $scope.searchText = "";
+    $scope.pageSize = 5;
+    $scope.currentPage = 1;
     $scope.enableCreate = false;
     $scope.selectedRow = -1;
     $scope.selectedId = 0;
