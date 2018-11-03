@@ -8,7 +8,8 @@ namespace ArtThree
     {
         Task<List<ATTrainee>> GetTrainies();
         ATTrainee GetTraineeById(int traineeId);
-        ATTrainee AddOrUpdateTrainee(ATTrainee atTrainee);
+        Task<ATTrainee> UpdateTrainee(ATTrainee atTrainee);
+        Task<ATTrainee> AddTrainee(ATTrainee atTrainee);
         bool Delete(int traineeId);
     }
 }

@@ -30,8 +30,8 @@ namespace ArtThree.Controllers
  
 
         // GET: api/Values/GetUser
-        [HttpGet, Route("GetUser")]
-        public async Task<object> GetUser()
+        [HttpGet, Route("GetAll")]
+        public async Task<object> GetAll()
         {
             List<ATTrainee> users = null;
             try
@@ -43,20 +43,7 @@ namespace ArtThree.Controllers
             {
 
                 ex.ToString();
-            }            //List<ATTrainee> users = null;
-
-            //try
-            //{
-            //    using (m_context)
-            //    {
-            //        users = await m_context.Trainees.ToListAsync();
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ex.ToString();
-            //}
+            }           
             return users;
         }
 
@@ -64,7 +51,7 @@ namespace ArtThree.Controllers
         [HttpGet, Route("GetUserByID/{id}")]
         public async Task<ATTrainee> GetUserByID(int id)
         {
-            ATTrainee ATTrainee = null;
+            ATTrainee ATTrainee = new ATTrainee() {Name="error" };
             try
             {
                 using (m_context)
@@ -82,39 +69,26 @@ namespace ArtThree.Controllers
 
         // POST api/Values/PostUser
         [HttpPost, Route("PostUser")]
-        public async Task<object> PostUser([FromBody]ATTrainee model)
+        public async Task<ATTrainee> PostUser([FromBody]ATTrainee model)
         {
-            object result = null; string message = "";
-            if (model == null)
-            {
-                return BadRequest();
-            }
-            using (m_context)
-            {
-                using (var _ctxTransaction = m_context.Database.BeginTransaction())
+                ATTrainee ATTraineeErr = new ATTrainee() { Name = "error" };
+                string message = "";
+                if (model == null)
                 {
-                    try
-                    {
-                        m_context.Trainees.Add(model);
-                        await m_context.SaveChangesAsync();
-                        _ctxTransaction.Commit();
-                        message = "Saved Successfully";
-                    }
-                    catch (Exception e)
-                    {
-                        _ctxTransaction.Rollback();
-                        e.ToString();
-                        message = "Saved Error";
-                    }
-
-                    result = new
-                    {
-                        message
-                    };
+                    return ATTraineeErr;
                 }
+ 
+                ATTrainee ATTrainee = new ATTrainee() { Name = "error" };
+                try
+                {
+                        ATTrainee = await m_repoService.AddTrainee(model);
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+                return ATTrainee;
             }
-            return result;
-        }
 
         // PUT api/Values/PutUser/5
         [HttpPut, Route("PutUser/{id}")]

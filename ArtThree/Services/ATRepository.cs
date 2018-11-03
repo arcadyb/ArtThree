@@ -46,20 +46,45 @@ namespace ArtThree
             return _context.Trainees.FirstOrDefault(c => c.Id == traineeId);
         }
 
-        public ATTrainee AddOrUpdateTrainee(ATTrainee atTrainee)
+        public async Task<ATTrainee> AddTrainee(ATTrainee atTrainee)
         {
-            if (atTrainee.Id == 0)
+            object result = null; string message = "";
+            if (atTrainee == null)
             {
-                _context.Trainees.Add(atTrainee);
-                return atTrainee;
+                return null;
             }
-            var originalTrainee = GetTraineeById(atTrainee.Id);
-            originalTrainee.Update(atTrainee);
-            _context.Update(originalTrainee);
-            return originalTrainee;
+ 
+                using (var _ctxTransaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        _context.Trainees.Add(atTrainee);
+                        await _context.SaveChangesAsync();
+                        _ctxTransaction.Commit();
+                        message = "Saved Successfully";
+                    }
+                    catch (Exception e)
+                    {
+                        _ctxTransaction.Rollback();
+                        e.ToString();
+                        message = "Saved Error";
+                    }
+
+                    result = new
+                    {
+                        message
+                    };
+                }
+          
+            return GetTraineeById(atTrainee.Id);
         }
 
         public bool Delete(int traineeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ATTrainee> UpdateTrainee(ATTrainee atTrainee)
         {
             throw new NotImplementedException();
         }

@@ -3,21 +3,24 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.title = "All User";
     $scope.ListUser = null;
     $scope.userModel = {};
-    $scope.userModel.Id = 0;
+    $scope.userModel.id = 0;
     getallData();
 
     //******=========Get All User=========******
     function getallData() {
         $http({
             method: 'GET',
-            url: '/api/Values/GetUser/'
+            url: '/api/Values/GetAll/'
         }).then(function (response) {
             $scope.ListUser = response.data;
         }, function (error) {
             console.log(error);
         });
     };
-
+    function createEmptyTrainee() {
+        $scope.userModel = {};
+        $scope.userModel.id = 0;
+    };
     //******=========Get Single User=========******
     $scope.getUser = function (user) {
         $http({
@@ -43,7 +46,19 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
             console.log(error);
         });
     };
-
+    $scope.newUser = function () {
+        createEmptyTrainee();
+        $http({
+            method: 'POST',
+            url: '/api/Values/PostUser/',
+            data: $scope.userModel
+        }).then(function (response) {
+            $scope.reset();
+            getallData();
+        }, function (error) {
+            console.log(error);
+        });
+    };
     //******=========Update User=========******
     $scope.updateUser = function () {
         $http({
@@ -51,7 +66,7 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
             url: '/api/Values/PutUser/' + parseInt($scope.userModel.id),
             data: $scope.userModel
         }).then(function (response) {
-            $scope.reset();
+            $scope.userModel = response.data;
             getallData();
         }, function (error) {
             console.log(error);

@@ -16,6 +16,7 @@
     <link href="/css/animate.min.css" rel="stylesheet" type="text/css" />
     <!--  Paper Dashboard core CSS    -->
     <link href="/css/paper-dashboard.css" rel="stylesheet" type="text/css" />
+    <link href="lib/bootstrap.datepicker/1.6.4/content/Content/bootstrap-datepicker.css" rel="stylesheet" />
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/css/demo.css" rel="stylesheet" type="text/css" />
     <!--  Fonts and icons     -->
@@ -23,7 +24,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="/css/themify-icons.css" rel="stylesheet" type="text/css">
-    <link href="/css/site.css?6" rel="stylesheet" type="text/css">
+    <link href="lib/angular-moment-picker/angular-moment-picker.css" rel="stylesheet" />
+    <link href="/css/site.css?12" rel="stylesheet" type="text/css">
 </head>
 <body style="max-height=100%;overflow:hidden">
     <div class="wrapper">
@@ -31,7 +33,7 @@
             <navbar-menu />
         </nav>
 
-        <div class="main-panel" >
+        <div class="main-panel">
             <div class="content">
                 <ui-view>
                     <p>
@@ -74,14 +76,21 @@
     <script src="/lib/jquery/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/lib/bootstrap/tether.min.js"></script>
     <script src="/lib/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+    <script src="lib/bootstrap.datepicker/1.6.4/content/Scripts/bootstrap-datepicker.js"></script>
+
+
     <!-- App JS Files   -->
     <script src="/lib/angular/angular.min.js"></script>
     <script src="/lib/angular/angular-ui-router.min.js"></script>
-    <script src="app/ngapp.js?2"></script>
+    <script src="lib/Momentjs/moment.js"></script>
+    <script src="lib/Momentjs/moment-with-locales.js"></script>
+    <script src="lib/angular-moment-picker/angular-moment-picker.js"></script>
+    <script src="lib/bootstrap.datepicker/1.6.4/content/Scripts/bootstrap-datepicker.js"></script>
+    <script src="app/ngapp.js?3"></script>
     <script src="app/routing.js?3"></script>
-    <script src="app/data/data.controller.js?4"></script>
-    <script src="app/shared/navbar/nav_directive.js?1"></script>
-   
+    <script src="app/data/data.controller.js?9"></script>
+    <script src="app/shared/navbar/nav_directive.js?2"></script>
+
     <script src="app/analysis/analysis.controller.js?2"></script>
     <script src="app/monitor/monitor.controller.js?2"></script>
 </body>

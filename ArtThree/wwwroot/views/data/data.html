@@ -1,18 +1,40 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row row-eq-height" style="height:20px">
+        <div class="col-sm-2">
+            <form class="navbar-form" role="search">
+                <div class="input-group" style="position:absolute;top:0px;width:270px">
+                    <span class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <input id="idSearchBox" type="text" class="form-control searchBox" style="background-color:white;color:black" placeholder="Search...">
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <a href="#" ng-click="newUser()" title="Add" class="btn btn-primary btn-xs pull-right">
+                Add
+            </a>
+            <a href="#" ng-click="deleteSelected()" title="Delete" class="btn btn-danger btn-xs pull-right">
+                Remove
+            </a>
+        </div>
+        <div class="col-sm-8"></div>
+        </div>
+        <div class="row row-eq-height">
+            <div class="col-sm-8 ">
 
-        <div class="col-sm-8">
-            <h3>All User</h3>
-            <table style="width:100%" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Id.</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Grade</th>
-                        <th>Subject</th>
-                    </tr>
-                </thead>
+                <table style="width:100%;height:100%" class="table table-striped">
+                    <thead tyle="width:100%">
+                        <tr>
+                            <th>Id.</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Grade</th>
+                            <th>Subject</th>
+                            
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr ng-repeat="item in ListUser">
                             <td>{{ item.id }}</td>
@@ -30,42 +52,44 @@
                             </td>
                         </tr>
                     </tbody>
-</table>
-        </div>
-        <div class="col-sm-4">
-            <h3>Add New User</h3>
-            <form name="frmUser" novalidate>
-                <input type="hidden" ng-model="userModel.Id" name="uid" />
-                <div class="form-group">
-                    <label for="uname" class="control-label">Name</label>
-                    <input type="text" class="form-control" ng-model="userModel.name" name="uname" placeholder="" required />
-                    <span class="error" ng-show="(frmUser.$dirty||submitted) && frmUser.uname.$error.required">Customer name is Required</span>
-                </div>
-                <div class="form-group">
-                    <label for="Grade" class="control-label">Grade</label>
-                    <input type="text" class="form-control" ng-model="userModel.grade" name="Grade" placeholder="" />
-                </div>
-                <div class="form-group">
-                    <label for="email" class="control-label">E-mail</label>
-                    <input type="email" class="form-control" ng-model="userModel.email" name="email" placeholder="" required />
-                    <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.email.$error.required">EmailId is Required!</span>
-                    <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.$error.email">Invalid EmailId!</span>
-                </div>
-                <div class="form-group">
-                    <label for="phone" class="control-label">Date Joined</label>
-                    <input type="datetime" class="form-control" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" />
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>
-                    <button type="submit" class="btn btn-primary" ng-click="saveUser()" 
-                            ng-If="userModel.id == 0">
-                        Create
-                    </button>
-                    <button type="submit" class="btn btn-success" ng-click="updateUser()" 
-                            ng-If="userModel.id > 0"> Update </button>
-                </div>
-            </form>
-            <span class="warning">{{resmessage}}</span>
+                </table>
+            </div>
+            <div class="col-sm-4">
+                <h3>Details</h3>
+                <form name="frmUser" novalidate>
+                    <input type="hidden" ng-model="userModel.Id" name="uid" />
+                    <div class="form-group">
+                        <label for="uname" class="control-label">Name</label>
+                        <input type="text" class="form-control" ng-model="userModel.name" name="uname" placeholder="" required />
+                        <span class="error" ng-show="(frmUser.$dirty||submitted) && frmUser.uname.$error.required">Customer name is Required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Grade" class="control-label">Grade</label>
+                        <input type="text" class="form-control" ng-model="userModel.grade" name="Grade" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label">E-mail</label>
+                        <input type="email" class="form-control" ng-model="userModel.email" name="email" placeholder="" required />
+                        <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.email.$error.required">EmailId is Required!</span>
+                        <span class="error" ng-show="(frmUser.$dirty ||submitted) && frmUser.$error.email">Invalid EmailId!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="DateJoined" class="control-label" ng-click="showDate()">Date Joined</label>
+                        <input type="datetime" class="form-control" ng-model="userModel.dateJoined" name="DateJoined" placeholder="" moment-picker="userModel.dateJoined">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>
+                        <button type="submit" class="btn btn-primary" ng-click="saveUser()"
+                                ng-If="userModel.id == 0">
+                            Create
+                        </button>
+                        <button type="submit" class="btn btn-success" ng-click="updateUser()"
+                                ng-If="userModel.id > 0">
+                            Update
+                        </button>
+                    </div>
+                </form>
+                <span class="warning">{{resmessage}}</span>
+            </div>
         </div>
     </div>
-</div>
