@@ -14,3 +14,4 @@ CRUD operations implemented in ValuesController
 not fully solved issue is binding angular model DateTime property to the html input control of type "date"
 (see https://github.com/angular-ui/ui-date/issues/148).problem solved partially using two html input conrols one of type text to view value (dateJoined)
 and second to pick date.
+User activity variables Search Filter number of page and page size saved in localStorage
