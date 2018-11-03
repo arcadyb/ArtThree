@@ -48,7 +48,7 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.updateUser = function () {
         $http({
             method: 'PUT',
-            url: '/api/Values/PutUser/' + parseInt($scope.userModel.Id),
+            url: '/api/Values/PutUser/' + parseInt($scope.userModel.id),
             data: $scope.userModel
         }).then(function (response) {
             $scope.reset();

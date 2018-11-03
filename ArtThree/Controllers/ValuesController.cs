@@ -134,10 +134,8 @@ namespace ArtThree.Controllers
                         var entityUpdate = m_context.Trainees.FirstOrDefault(x => x.Id == id);
                         if (entityUpdate != null)
                         {
-                            entityUpdate.Name = model.Name;
-                            
-                            entityUpdate.Email = model.Email;
-
+                            entityUpdate.Update(model);
+           
                             await m_context.SaveChangesAsync();
                         }
                         _ctxTransaction.Commit();
