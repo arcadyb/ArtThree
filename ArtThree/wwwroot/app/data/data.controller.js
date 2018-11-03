@@ -4,8 +4,19 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.ListUser = null;
     $scope.userModel = {};
     $scope.userModel.id = 0;
+    $scope.searchText = "";
+    $scope.enableCreate = false;
     getallData();
-
+    $scope.enableCreateNew=function() {
+        if ($scope.enableCreate) {
+            $scope.newUser();
+            $scope.enableCreate = false;
+        }
+        else { 
+        createEmptyTrainee();
+        $scope.enableCreate = true;
+    }
+    }
     //******=========Get All User=========******
     function getallData() {
         $http({
@@ -20,6 +31,8 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     function createEmptyTrainee() {
         $scope.userModel = {};
         $scope.userModel.id = 0;
+        $scope.userModel.name = "New";
+        
     };
     //******=========Get Single User=========******
     $scope.getUser = function (user) {
@@ -48,12 +61,13 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     };
     $scope.newUser = function () {
         createEmptyTrainee();
+        $scope.enableCreate = false;
         $http({
             method: 'POST',
             url: '/api/Values/PostUser/',
             data: $scope.userModel
         }).then(function (response) {
-            $scope.reset();
+            $scope.userModel = response.data;
             getallData();
         }, function (error) {
             console.log(error);
@@ -93,6 +107,6 @@ templatingApp.controller('DataController', ['$scope', '$http', function ($scope,
     $scope.reset = function () {
         var msg = "Form Cleared";
         $scope.userModel = {};
-        $scope.userModel.Id = 0;
+        $scope.userModel.id = 0;
     };
 }]);

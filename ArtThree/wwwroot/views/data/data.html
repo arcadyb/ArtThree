@@ -6,12 +6,12 @@
                     <span class="input-group-addon">
                         <i class="fa fa-search"></i>
                     </span>
-                    <input id="idSearchBox" type="text" class="form-control searchBox" style="background-color:white;color:black" placeholder="Search...">
+                    <input id="idSearchBox" type="text" class="form-control searchBox" style="background-color:white;color:black" ng-model="searchText" placeholder="Search...">
                 </div>
             </form>
         </div>
         <div class="col-sm-2">
-            <a href="#" ng-click="newUser()" title="Add" class="btn btn-primary btn-xs pull-right">
+            <a href="#" ng-click="enableCreateNew()" title="Add" class="btn btn-primary btn-xs pull-right">
                 Add
             </a>
             <a href="#" ng-click="deleteSelected()" title="Delete" class="btn btn-danger btn-xs pull-right">
@@ -36,7 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in ListUser">
+                        <tr ng-repeat="item in ListUser| filter:searchText">
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.dateJoined }}</td>
@@ -54,7 +54,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" style="overflow-y:scroll">
                 <h3>Details</h3>
                 <form name="frmUser" novalidate>
                     <input type="hidden" ng-model="userModel.Id" name="uid" />
@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <button type="submit" class="btn btn-danger" ng-click="reset()">Reset</button>
                         <button type="submit" class="btn btn-primary" ng-click="saveUser()"
-                                ng-If="userModel.id == 0">
+                                ng-If="userModel.id == 0 && enableCreate">
                             Create
                         </button>
                         <button type="submit" class="btn btn-success" ng-click="updateUser()"
